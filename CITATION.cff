@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite the paper."
+title: "The Optimal Rate Constant of Heavy-Ball Momentum on Smooth Strongly Convex Functions"
+authors:
+  - family-names: Hernanz
+    given-names: Marcos
+repository-code: "https://github.com/marcoshernanz/heavy-ball-optimal-rate"
+license: MIT
+preferred-citation:
+  type: unpublished
+  title: "The Optimal Rate Constant of Heavy-Ball Momentum on Smooth Strongly Convex Functions"
+  authors:
+    - family-names: Hernanz
+      given-names: Marcos
+  year: 2026
+  notes: "Preprint"
