@@ -1,0 +1,49 @@
+{
+ "reduction": "ok",
+ "jury": "ok",
+ "window": {
+  "1": [
+   true,
+   true,
+   true,
+   9
+  ],
+  "-1": [
+   true,
+   true,
+   true,
+   67
+  ]
+ },
+ "window_sturm": {
+  "F1_1": [
+   "4*y**2 + 14*y + 8",
+   "-4*y**6 - 14*y**5 - 4*y**4 + 14*y**3 - 8*y**2 + 16"
+  ],
+  "F2_1": [
+   "-8*y**3 - 12*y**2 + 8*y + 8",
+   "y**6/2 + 8*y**5 + 19*y**4/2 - 16*y**3 - 24*y**2 + 8*y + 14"
+  ],
+  "F1_-1": [
+   "4*y**2 - 14*y + 8",
+   "-4*y**6 + 14*y**5 - 4*y**4 - 14*y**3 - 8*y**2 + 16"
+  ],
+  "F2_-1": [
+   "8*y**3 - 12*y**2 - 8*y + 8",
+   "y**6/2 - 8*y**5 + 19*y**4/2 + 16*y**3 - 24*y**2 - 8*y + 14"
+  ]
+ },
+ "rou": "ok",
+ "end_to_end": {
+  "tests": 400,
+  "min relative slack (slack_k / (P D_k))": 0.15316838935922528
+ },
+ "rest_start": {
+  "tests": 20,
+  "min normalised slack": 0.004942486634780688
+ },
+ "F1_1": "-2*(-theta**2*y**5 - 2*theta**2*y**4 + theta**2*y**3 + 3*theta**2*y**2 + 2*theta*y**6 + 8*theta*y**5 + 6*theta*y**4 - theta*y**3 + 5*theta*y**2 - 8*theta - 2*y**4 - 7*y**3 - 4*y**2)",
+ "F2_1": "(theta**2*y**6 - 3*theta**2*y**4 - 6*theta**2*y**2 + 16*theta*y**5 + 22*theta*y**4 - 16*theta*y**3 - 18*theta*y**2 + 12*theta - 16*y**3 - 24*y**2 + 16*y + 16)/2",
+ "F1_-1": "-2*(theta**2*y**5 - 2*theta**2*y**4 - theta**2*y**3 + 3*theta**2*y**2 + 2*theta*y**6 - 8*theta*y**5 + 6*theta*y**4 + theta*y**3 + 5*theta*y**2 - 8*theta - 2*y**4 + 7*y**3 - 4*y**2)",
+ "F2_-1": "(theta**2*y**6 - 3*theta**2*y**4 - 6*theta**2*y**2 - 16*theta*y**5 + 22*theta*y**4 + 16*theta*y**3 - 18*theta*y**2 + 12*theta + 16*y**3 - 24*y**2 - 16*y + 16)/2"
+}

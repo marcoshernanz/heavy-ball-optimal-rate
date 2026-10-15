@@ -1,0 +1,8 @@
+code/pv_region_search.py:26: RuntimeWarning: invalid value encountered in sqrt
+  return np.where(disc >= 0, (np.abs(p) + np.sqrt(np.maximum(disc, 0))) / 2, np.sqrt(be))
+kappa=100: best kappa(1-rho_q) on Q (mu-overdamped) = 5.034 at beta = r(r - 2.587 s); (L-overdamped branch best 3.109);  ours: 8-64s = 1.600
+kappa=400: best kappa(1-rho_q) on Q (mu-overdamped) = 6.175 at beta = r(r - 3.137 s); (L-overdamped branch best 3.203);  ours: 8-64s = 4.800
+kappa=1000: best kappa(1-rho_q) on Q (mu-overdamped) = 6.736 at beta = r(r - 3.357 s); (L-overdamped branch best 3.222);  ours: 8-64s = 5.976
+kappa=10000: best kappa(1-rho_q) on Q (mu-overdamped) = 7.549 at beta = r(r - 3.736 s); (L-overdamped branch best None);  ours: 8-64s = 7.360
+kappa=100000: best kappa(1-rho_q) on Q (mu-overdamped) = 7.851 at beta = r(r - 3.716 s); (L-overdamped branch best None);  ours: 8-64s = 7.798
+.venv/bin/python code/pv_region_search.py  44.49s user 2.11s system 97% cpu 47.794 total
