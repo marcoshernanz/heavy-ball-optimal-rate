@@ -78,3 +78,7 @@ The PDF is written to `paper/build/main.pdf`.
   note   = {Preprint}
 }
 ```
+
+## License
+
+MIT; see [LICENSE](LICENSE).
