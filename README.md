@@ -1,7 +1,7 @@
 # The optimal rate constant of heavy-ball momentum
 
 Code, exact certificates and LaTeX source for the paper *The Optimal Rate Constant of Heavy-Ball Momentum on Smooth
-Strongly Convex Functions* (Marcos Hernanz, 2026).
+Strongly Convex Functions* (Marcos Hernanz, 2026). The PDF is [paper.pdf](paper.pdf).
 
 Heavy-ball with a constant step size $\gamma$ and a constant momentum $\beta$,
 $x_{t+1} = x_t - \gamma \nabla f(x_t) + \beta (x_t - x_{t-1})$, accelerates gradient descent on quadratics but not
@@ -19,11 +19,12 @@ of the paper collects results in one dimension.
 
 ## Layout
 
-| Folder     | Contents                                                                    |
-| ---------- | --------------------------------------------------------------------------- |
-| `paper/`   | LaTeX source of the paper                                                   |
-| `code/`    | the scripts that check the computer-assisted steps and make the figure      |
-| `results/` | what the scripts write, and the paper quotes                                |
+| Path        | Contents                                                               |
+| ----------- | ---------------------------------------------------------------------- |
+| `paper.pdf` | the paper                                                              |
+| `paper/`    | LaTeX source of the paper                                              |
+| `code/`     | the scripts that check the computer-assisted steps and make the figure |
+| `results/`  | what the scripts write, and the paper quotes                           |
 
 ## Setup
 
@@ -66,7 +67,7 @@ Prefix each command with `.venv/bin/python`. The exact checks raise an error if 
 cd paper && latexmk
 ```
 
-The PDF is written to `paper/build/main.pdf`.
+The PDF is written to `paper/build/main.pdf`; `paper.pdf` is a copy of it.
 
 ## Citation
 
