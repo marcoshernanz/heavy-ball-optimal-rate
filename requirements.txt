@@ -1,0 +1,8 @@
+sympy==1.14.0
+mpmath==1.3.0
+numpy==2.5.4
+scipy==1.18.1
+matplotlib==3.11.2
+# only for fixed_kappa_certificates.py --search
+cvxpy==1.9.3
+clarabel==0.11.1
