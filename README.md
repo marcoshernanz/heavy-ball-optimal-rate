@@ -46,8 +46,8 @@ Run each command from the repository root. Times are for a laptop (Apple M4).
 | ------- | ------------------ | ---- |
 | `code/verify_lowerbound.py` | Theorem A and Corollary 2: every exact check of Table 1 and the floating-point tests; writes `results/optimal/lowerbound.json` and ends with `ALL OK` | 3 s |
 | `code/verify_rou_analytic.py` | the constants in the hand proof of Lemma 5 | 1 s |
-| `code/verify_achievability.py 1/20` | Proposition 1 (the certificate of Theorem B) for $\kappa \ge 400$, by exact Sturm counts; writes `results/optimal/achievability.json` | 31 s |
-| `code/verify_achievability.py --range` | the exact range of the certificate (§6.5): valid for $\kappa > 357.29$, and for no larger $s < 1$ | 36 s |
+| `code/verify_achievability.py 1/20` | Proposition 1 (the certificate of Theorem B) for $\kappa \ge 400$, by exact Sturm counts; writes `results/optimal/achievability.json` | 33 s |
+| `code/verify_achievability.py --range` | the exact range of the certificate (§6.5): valid for $\kappa \ge 357.2901\ldots$ and for no smaller $\kappa$ | 37 s |
 | `code/verify_achievability.py --table` | the constant $M$ of Theorem B at sample $\kappa$ (Table 3, floating point) | 1 s |
 | `code/verify_pv_membership.py` | the tuning of Theorem B lies in the region $Q$ of Pasechniuk-Vilensky (Remark 2) | 2 s |
 | `code/fixed_kappa_certificates.py` | exact certificates at $\kappa = 100, 400, 10^3, 10^4$ (Appendix C); writes `results/optimal/fixed_kappa.json` | 1 s |
