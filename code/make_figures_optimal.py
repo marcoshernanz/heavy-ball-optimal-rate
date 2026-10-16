@@ -272,15 +272,15 @@ def fig_spiral_paper():
 
 # ------------------------------------------------------------------------------------------- Figure 3
 def certificate_minors():
-    """Normalised leading principal minors of Q^T F3 Q and of G (Theorem B) as functions of s."""
+    """Normalised leading principal minors of U^T F3 U and of G (Theorem B) as functions of s."""
     import importlib.util
     spec = importlib.util.spec_from_file_location('va', os.path.join(os.path.dirname(__file__), 'verify_achievability.py'))
     va = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(va)
     F = va.check_identity()
     F3 = F[1:, 1:]
-    Q = sp.Matrix([[1, 4, 0], [0, 1, 1], [0, -1, 1]])
-    M = (Q.T * F3 * Q).applyfunc(sp.cancel)
+    U = sp.Matrix([[1, 4, 0], [0, 1, 1], [0, -1, 1]])
+    M = (U.T * F3 * U).applyfunc(sp.cancel)
     G = (va.P + sp.diag(0, 0, 1 / (2 * va.l))).applyfunc(sp.cancel)
     out = {}
     for name, Mat in (('F', M), ('G', G)):
