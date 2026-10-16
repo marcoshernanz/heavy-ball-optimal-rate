@@ -77,7 +77,9 @@ The PDF is written to `paper/build/main.pdf`; `paper.pdf` is a copy of it.
   title  = {The Optimal Rate Constant of Heavy-Ball Momentum on Smooth Strongly Convex Functions},
   author = {Hernanz, Marcos},
   year   = {2026},
-  note   = {Preprint}
+  month  = oct,
+  howpublished = {alphaXiv preprint},
+  url    = {https://www.alphaxiv.org/abs/2610.heavy-ball-optimal-rate}
 }
 ```
 
