@@ -11,7 +11,6 @@ Contents
   stall_lp(h, beta, q, K, order)    max-margin LP (float) for a stall cycle with a given order
   polyak_k5_symbolic()              symbolic proof: Polyak's tuning has the rest-start 5-cycle
                                     1, 0, -1, -delta/beta, 1 for every kappa >= 100   (p = 1 branch)
-                                    and a 5-cycle for every kappa >= 45.77 (p = p_hi branch)
   exact_certificate(h, beta, q, x)  exact (Fraction) check of a stall cycle + exact HB simulation from rest
                                     on the piecewise-linear-gradient interpolant
 Run: .venv/bin/python code/stallcycles.py   (writes results/certificates/stall_*.json)
