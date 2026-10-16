@@ -14,8 +14,9 @@ Proof certificate (checked here in exact arithmetic):  phi = f - mu|x|^2/2 is co
     (b)  F >= 0  (F has the mu-mode null vector; the rest is checked by exact leading principal minors);
     (c)  G = P + e3 e3^T / (2(1-q)) > 0, so V_k >= lambda_min(G) ||x_k||^2  (uses phi(x_{k-1}) >= |p_{k-1}|^2/(2(1-q))).
 Run: .venv/bin/python code/verify_achievability.py 1/20   (writes results/optimal/achievability.json)
-     .venv/bin/python code/verify_achievability.py --range  (where each minor first changes sign, and that the
-                                                             certificate fails for every larger s < 1)
+     .venv/bin/python code/verify_achievability.py --range  (where each minor first changes sign, that the
+                                                             certificate holds at the first sign change s_1, and
+                                                             that it fails for every larger s < 1)
      .venv/bin/python code/verify_achievability.py --table  (the constant M at sample kappa, floating point)
 """
 import json
@@ -103,8 +104,8 @@ def main(s0=R(1, 20)):
     discL = sp.expand((1 + beta - h)**2 - 4 * beta)
     assert positive_on(-discL, s0), 'L-mode roots complex'
     F3 = F[1:, 1:]
-    Q = sp.Matrix([[1, 4, 0], [0, 1, 1], [0, -1, 1]])          # adapted basis (asymptotic analysis)
-    M = (Q.T * F3 * Q).applyfunc(sp.cancel)
+    U = sp.Matrix([[1, 4, 0], [0, 1, 1], [0, -1, 1]])          # adapted basis (asymptotic analysis)
+    M = (U.T * F3 * U).applyfunc(sp.cancel)
     resF = minors_positive(M, s0, 'F')
     G = (P + sp.diag(0, 0, 1 / (2 * l))).applyfunc(sp.cancel)
     resG = minors_positive(G, s0, 'G')
@@ -115,31 +116,42 @@ def main(s0=R(1, 20)):
             'tuning': {'C': str(C), 'r': str(sp.expand(r)), 'beta': str(sp.expand(beta)), 'gammaL': str(sp.expand(h))},
             'P': [[str(sp.factor(P[i, j])) for j in range(3)] for i in range(3)],
             'F': [[str(sp.factor(F[i, j])) for j in range(4)] for i in range(4)],
-            'Q': [[str(Q[i, j]) for j in range(3)] for i in range(3)],
+            'U': [[str(U[i, j]) for j in range(3)] for i in range(3)],
             'G': [[str(sp.factor(G[i, j])) for j in range(3)] for i in range(3)],
             'discriminant_curvature_1': str(discL)}
+
+
+def sign_at_root(p, f, lo, hi):
+    """Exact sign of the polynomial p at the only root of the irreducible f in [lo, hi]."""
+    if sp.gcd(p, f).degree() > 0:
+        return 0
+    eps = (hi - lo) / 2
+    while p.count_roots(lo, hi) > 0:
+        lo, hi = f.refine_root(lo, hi, eps=eps)
+        eps /= 2
+    return int(sp.sign(p.eval(lo)))
 
 
 def validity_range(smax=R(1, 5)):
     """Where the certificate stops working: first sign change in (0, smax) of each minor (numerator * denominator)."""
     F = check_identity()
-    Q = sp.Matrix([[1, 4, 0], [0, 1, 1], [0, -1, 1]])
-    M = (Q.T * F[1:, 1:] * Q).applyfunc(sp.cancel)
+    U = sp.Matrix([[1, 4, 0], [0, 1, 1], [0, -1, 1]])
+    M = (U.T * F[1:, 1:] * U).applyfunc(sp.cancel)
     G = (P + sp.diag(0, 0, 1 / (2 * l))).applyfunc(sp.cancel)
     out = {}
-    nds = []
+    nds, fracs = [], []
     for name, Mat in [('F', M), ('G', G)]:
         for k in range(1, 4):
             n, d = sp.fraction(sp.factor(sp.together(Mat[:k, :k].det())))
             nds.append(sp.expand(n * d))
+            fracs.append((sp.Poly(sp.expand(n), s), sp.Poly(sp.expand(d), s)))
             rts = [rt for rt in sp.Poly(sp.expand(n * d), s).real_roots() if 0 < rt < smax]
             first = min(rts) if rts else None
             out[f'{name}{k}'] = None if first is None else (float(first), float(1 / first**2))
             print(f'{name} minor {k}: first sign change in (0, {smax}):',
                   'none' if first is None else f's = {float(first):.6f}  (kappa = {float(1 / first**2):.2f})')
-    # the certificate fails for every s in [s_1, 1), s_1 the first sign change: between consecutive real roots of the
-    # six products n*d the signs are constant, so a rational sample point decides them; at a root itself some minor
-    # is zero or undefined, so the certificate fails there as well
+    # the certificate fails for every s in (s_1, 1), s_1 the first root of the six products n*d: between consecutive
+    # real roots of these products the signs are constant, so a rational sample point decides them
     allroots = [rt for nd in nds for rt in sp.Poly(nd, s).real_roots() if 0 < rt < 1]
     s1 = min(allroots)
     roots = sorted(set(allroots))
@@ -149,8 +161,28 @@ def validity_range(smax=R(1, 5)):
         mid = (lo + hi) / 2
         assert a < mid < b
         assert any(sp.Poly(nd, s).eval(mid) < 0 for nd in nds), f'certificate holds near s = {float(mid)}'
-    print(f'certificate fails for every s in [{float(s1):.10f}, 1), i.e. kappa <= {float(1 / s1**2):.6f}',
-          f'({len(pts) - 1} intervals checked)')
+    # at each root itself the signs are decided exactly on an isolating interval of an irreducible factor: some minor
+    # is negative there, or P is undefined. At s_1 only the third F-minor vanishes, so F_3 >= 0 by continuity.
+    Pden = sp.Poly(sp.expand(sp.Mul(*{sp.denom(sp.together(e)) for e in P})), s)
+    factors = {f for pl in [Pden] + [x for nd in fracs for x in nd] for f, _ in pl.factor_list()[1] if f.degree() > 0}
+    isolated = [(f, lo, hi) for f in factors for (lo, hi), _ in f.intervals(eps=R(1, 10**30)) if 0 < lo and hi < 1]
+    at_s1 = [t for t in isolated if t[1] <= s1 <= t[2]]
+    assert len(at_s1) == 1
+    assert Pden.count_roots(0, at_s1[0][2]) == (Pden.eval(0) == 0), 'P has a pole in (0, s_1]'
+    nroot = 0
+    for f, lo, hi in isolated:
+        if hi < s1:
+            continue
+        signs = [sign_at_root(n, f, lo, hi) * sign_at_root(d, f, lo, hi) for n, d in fracs]
+        undefined = sign_at_root(Pden, f, lo, hi) == 0 or any(sign_at_root(d, f, lo, hi) == 0 for _, d in fracs)
+        if (f, lo, hi) == at_s1[0]:
+            assert signs == [1, 1, 0, 1, 1, 1] and not undefined, 'at s_1 only the third F-minor vanishes'
+        else:
+            nroot += 1
+            assert undefined or min(signs) < 0, f'certificate holds at a root near s = {float(lo)}'
+    assert nroot >= len(roots) - 1
+    print(f'certificate fails for every s in ({float(s1):.10f}, 1), that is, 1 < kappa < {float(1 / s1**2):.6f}',
+          f'({len(pts) - 1} intervals and {nroot} roots checked); at s_1 it still holds')
     # below s_1 the certificate needs the L-mode roots to stay complex: first sign change of the discriminant
     discL = sp.expand((1 + beta - h)**2 - 4 * beta)
     d1 = min(rt for rt in sp.Poly(discL, s).real_roots() if rt > 0)
