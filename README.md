@@ -1,7 +1,8 @@
 # The optimal rate constant of heavy-ball momentum
 
-Code, exact certificates and LaTeX source for the paper *The Optimal Rate Constant of Heavy-Ball Momentum on Smooth
-Strongly Convex Functions* (Marcos Hernanz, 2026). The PDF is [paper.pdf](paper.pdf).
+Code, exact certificates and LaTeX source for the paper
+[*The Optimal Rate Constant of Heavy-Ball Momentum on Smooth Strongly Convex Functions*](https://www.alphaxiv.org/abs/2610.heavy-ball-optimal-rate)
+(Marcos Hernanz, October 2026). The PDF is also in the repo as [paper.pdf](paper.pdf).
 
 Heavy-ball with a constant step size $\gamma$ and a constant momentum $\beta$,
 $x_{t+1} = x_t - \gamma \nabla f(x_t) + \beta (x_t - x_{t-1})$, accelerates gradient descent on quadratics but not
