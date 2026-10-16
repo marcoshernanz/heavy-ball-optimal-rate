@@ -146,8 +146,9 @@ Nesterov's method, which would certify an accelerated rate.
 
 Polyak's tuning can fail on $\F$. \Citet{lessard2016analysis} found a one-dimensional function at $\kappa=25$ on
 which its iterates approach a cycle. \Citet{badithela2019analysis} solved the linear matrix inequality of the weighted
-off-by-one constraint analytically for Polyak's tuning. Their solution bounds the rate by $1$ at $\kappa=9+4\sqrt5$, and
-at this $\kappa$ they constructed a function of one variable on which the method cycles. \Citet[Thm.~2.2]{pasechniuk2026two}
+off-by-one constraint analytically for Polyak's tuning and constructed a function on which the method enters a limit
+cycle. As \citet[§1.1]{pasechniuk2026two} describe it, the bound reaches $1$ at $\kappa=9+4\sqrt5$, where a function of
+one variable has a three-cycle. \Citet[Thm.~2.2]{pasechniuk2026two}
 prove that $9+4\sqrt5$ is the exact threshold, with convergence on all of $\F$ below it and a non-convergent trajectory
 at and above it. \Citet{wang2022provable} claim acceleration for a class of
 Polyak--{\L}ojasiewicz functions. Their erratum (arXiv v3, App.~J) adds a co-diagonalization condition, and
@@ -162,8 +163,8 @@ $K$-th roots of unity in the plane (their Thm.~3.5) and proved that every tuning
 $\rho\ge(1-C/\kappa)/(1+C/\kappa)$ for every $C>50/3$ (Thm.~3.6), which is $c\le100/3$ in our normalization.
 \Citet{goujaud2025riddles} asked whether heavy-ball accelerates on functions of one variable.
 \Citet{fotopoulos2026cycling} answered this negatively by rotating the planar cycles and projecting them onto a line.
-Building on their construction, \citet[App.~F]{liu2026sharp} prove $(\kappa-12)/(\kappa+12)\le\rho^\star$ for
-$\kappa\ge24$ in one dimension, over $\gamma>0$ and $0\le\beta<1$. Tunings outside this range have
+Building on their construction, \citet[App.~F]{liu2026sharp} prove that in one dimension every tuning with $\gamma>0$
+and $0\le\beta<1$ has rate at least $(\kappa-12)/(\kappa+12)$ when $\kappa\ge24$. Tunings outside this range have
 $\rho_Q\ge1-8/\kappa$ by \cref{lem:jury}, which is larger. Since $\rho^\star$ does not decrease with the dimension, this gives $c\le24$ in every dimension.
 
 The concurrent work of \citet{pasechniuk2026two} is the closest to ours. It answers the second riddle of
@@ -186,7 +187,8 @@ $\kappa$ between about $850$ and $4200$ (our reading of their figure, whose reso
 descent, which is true of the order in $\kappa$. \Citet[Fig.~4]{vanscoy2021speed} find $c\approx5$ at $\kappa=100$, and
 \citet[Fig.~2c]{upadhyaya2023automated} find $c\approx2.2$ at $\kappa=10$ with step $1/L$, both read off their figures and
 converted from rates of the squared distance. Goujaud's thesis \citep[Table~10.1]{goujaud2024thesis} reports optima at $\kappa=20$, $100$ and
-$1000$ (\cref{sec:earlier}). The lag-one multiplier behind our certificate is a discrete-time Zames--Falb multiplier \citep{zames1968stability}, and
+$1000$ (\cref{sec:earlier}). The lag-one multiplier behind our certificate is a discrete-time analogue of the Zames--Falb multipliers
+\citep{zames1968stability}, and
 \citet[§1.5]{pasechniuk2026two} note that it coincides with the weighted off-by-one constraint of
 \citet{lessard2016analysis}. They relate single-harmonic periodic orbits to the periodic counterexamples in absolute
 stability of \citet{seiler2021construction}, and multi-harmonic obstructions to the duality bounds for Zames--Falb
@@ -261,9 +263,9 @@ $\rho_Q=\max_{\lambda\in[q,1]}r(\lambda)=\max\{r(q),r(1)\}$. Running heavy-ball 
 of a complex one, shows that $\rho_{\gamma,\beta}(\F)\ge\rho_Q$, and $\rho_Q$ is the rate on $\Qc$
 \citep[Prop.~2.1]{goujaud2025provable}.
 
-Both proofs rest on the interpolation conditions for $\F$. A finite set $\{(x_i,g_i,f_i)\}_{i\in I}$ is
-\emph{$\F$-interpolable} if some $f\in\F(\R^d)$ has $f(x_i)=f_i$ and $\nabla f(x_i)=g_i$ for all $i\in I$. By
-\citet[Thm.~4]{taylor2017smooth}, this holds if and only if, for all $i,j\in I$,
+Both proofs rest on the interpolation conditions for $\F$. A finite set of triples $(x_i,g_i,f_i)$ is
+\emph{$\F$-interpolable} if some $f\in\F(\R^d)$ has $f(x_i)=f_i$ and $\nabla f(x_i)=g_i$ for all $i$. By
+\citet[Thm.~4]{taylor2017smooth}, this holds if and only if, for all $i$ and $j$,
 \begin{equation}
   I(i,j):=f_i-f_j-\langle g_j,x_i-x_j\rangle
   -\frac{\|g_i-g_j\|^2+q\|x_i-x_j\|^2-2q\langle g_i-g_j,x_i-x_j\rangle}{2(1-q)}\ \ge\ 0.
@@ -304,8 +306,8 @@ multipliers.
 \end{theorem}
 
 The constant $M$ is given in the proof. For example, $M<78$ at $\kappa=400$ and $M<559$ at $\kappa=10^4$
-(\cref{tab:Mconst}). The same certificate works for every $\kappa$ larger than
-$357.2901\ldots$ and for no smaller $\kappa$ (\cref{sec:range}).
+(\cref{tab:Mconst}). The same certificate works for every
+$\kappa\ge357.2901\ldots$ and for no smaller $\kappa$ (\cref{sec:range}).
 
 \begin{corollary}[the optimal constant]
   \label{cor:optimal}
@@ -803,38 +805,41 @@ To leading order in $s$, using $\gamma\approx32s$ and $\varphi+(q/2)\|\cdot\|^2=
   +2s\|\nabla\varphi(x_{t-1})\|^2+\cdots,
   \label{eq:energy}
 \end{equation}
-where the dots stand for terms of higher order in $s$. The certificate is therefore a small perturbation of the
-mechanical energy of the heavy ball, potential plus kinetic.
+where the dots stand for the cross terms $(s/2)\langle x_t-x_{t-1},x_{t-1}\rangle$ and
+$4s^2\langle x_{t-1},\nabla\varphi(x_{t-1})\rangle$ to leading order, and for corrections of higher order in $s$ to the
+coefficients shown. The certificate is therefore a small perturbation of the mechanical energy of the heavy ball,
+potential plus kinetic.
 
 \subsection{Exact verification}
 \label{sec:verification}
 
 In the basis
 \[
-  Q=\begin{pmatrix}1&4&0\\0&1&1\\0&-1&1\end{pmatrix},\qquad\det Q=2,
+  U=\begin{pmatrix}1&4&0\\0&1&1\\0&-1&1\end{pmatrix},\qquad\det U=2,
 \]
-the leading principal minors of $Q^\top F_3Q$ and of $G$ are rational functions of $s$ with the expansions
+the leading principal minors of $U^\top F_3U$ and of $G$ are rational functions of $s$ with the expansions
 \begin{alignat*}{4}
-  &Q^\top F_3Q:&\qquad &\frac18+\frac34s+O(s^2),&\qquad &\frac s4+O(s^2),&\qquad &2s^3+O(s^4),\\
+  &U^\top F_3U:&\qquad &\frac18+\frac34s+O(s^2),&\qquad &\frac s4+O(s^2),&\qquad &2s^3+O(s^4),\\
   &G:& &\frac1{64s}+O(1),& &\frac s{128}+O(s^2),& &\frac s{256}+O(s^2).
 \end{alignat*}
 Write each minor as $n(s)/d(s)$ in lowest terms. We verify by an exact Sturm count that the polynomial $nd$ has no root in $(0,1/20]$, and
 that it is positive at $s=1/20$. So all six minors are positive on $(0,1/20]$, and Sylvester's criterion gives
-$Q^\top F_3Q\succ0$ and $G\succ0$. The identity~\eqref{eq:identity}, the null vector, the root $r$ and the sign of the
+$U^\top F_3U\succ0$ and $G\succ0$. The identity~\eqref{eq:identity}, the null vector, the root $r$ and the sign of the
 discriminant in the direction of curvature $1$ are all checked symbolically or by exact root counting. This proves
 \cref{prop:identity}, and with it \cref{thm:upper}.
 
 \subsection{Exact range}
 \label{sec:range}
 
-The minors of $G$ and the first minor of $Q^\top F_3Q$ have no sign change on $(0,1/5)$. The second minor of
-$Q^\top F_3Q$ first changes sign at $s\approx0.060896$ ($\kappa\approx269.67$) and the third at $s_1=0.0529041\ldots$, that is,
-$\kappa=1/s_1^2=357.2901\ldots$. The discriminant for curvature $1$ stays negative up to $s\approx0.122$. For every
-$s\in[s_1,1)$ some minor is negative, zero or undefined. So this certificate proves \cref{thm:upper} for every
-$\kappa>1/s_1^2$ and for no smaller $\kappa$. We state $\kappa\ge400$ for simplicity. For $64.82<\kappa\le1/s_1^2$ the rate of
-the same tuning still follows from \citet{pasechniuk2026two} (\cref{rem:pv}), but there
-$8-64/\sqrt\kappa$ is below $4.62$, while the certified tuning at $\kappa=10^2$ in \cref{tab:bracket} already gives
-$5.032$.
+The minors of $G$ and the first minor of $U^\top F_3U$ have no sign change on $(0,1/5)$. The second minor of
+$U^\top F_3U$ first changes sign at $s\approx0.060896$ ($\kappa\approx269.67$) and the third at $s_1\approx0.0529041$, that is,
+$\kappa=1/s_1^2\approx357.2901$. The discriminant for curvature $1$ stays negative up to $s\approx0.122$. At $s_1$ the
+third minor vanishes and the other five are positive, so $F_3\succeq0$ by continuity and the conclusions of
+\cref{prop:identity} still hold. For every $s\in(s_1,1)$, either $P$ is undefined or some minor is negative, so that
+$F\not\succeq0$ or $G\not\succ0$. So this certificate proves \cref{thm:upper} for every $\kappa\ge1/s_1^2$ and for no
+smaller $\kappa$. We state $\kappa\ge400$ for simplicity. For $64.82<\kappa<1/s_1^2$ the rate of the same tuning still
+follows from \citet{pasechniuk2026two} (\cref{rem:pv}), but there $8-64/\sqrt\kappa$ is below $4.62$, while the
+certified tuning at $\kappa=10^2$ in \cref{tab:bracket} already gives $5.032$.
 
 \subsection{How the certificate was found}
 \label{sec:found}
@@ -886,7 +891,7 @@ one point. ``Interval'' means outward-rounded interval arithmetic.
     \cref{prop:identity} & identity~\eqref{eq:identity}, null vector $v_0$, $r$ is a root for curvature $q$ & all $s$ & symbolic & \file{verify_achievability} \\
     & 6 leading minors positive & $s\in(0,1/20]$ & Sturm & \file{verify_achievability} \\
     & discriminant for curvature $1$ negative & $s\in(0,1/20]$ & Sturm & \file{verify_achievability} \\
-    & first sign change of each minor, and failure for every larger $s$ & $s\in(0,1)$ & real-root isolation & \file{verify_achievability} \texttt{-{}-range} \\
+    & first sign change of each minor, validity at $s_1$ and failure for every larger $s$ & $s\in(0,1)$ & real-root isolation & \file{verify_achievability} \texttt{-{}-range} \\
     \cref{rem:pv} & membership in the region $Q$ of \citet{pasechniuk2026two} (sufficient conditions) & $s\in(0,0.12420979]$ & Sturm & \file{verify_pv_membership} \\
     \cref{tab:bracket} & fixed-$\kappa$ certificates (\cref{app:fixed}) & $\kappa\in\{10^2,400,10^3,10^4\}$ & exact rationals & \file{fixed_kappa_certificates} \\
     \cref{sec:ghadimi} & spiral bound for the corner tuning & $\kappa=10^2,\dots,10^5$ & interval & \file{ghadimi_corner} \\
@@ -898,9 +903,9 @@ one point. ``Interval'' means outward-rounded interval arithmetic.
 
 In \cref{lem:window} the polynomials have degree at most $6$ and small rational coefficients. They are printed in the
 proof and in \cref{app:polys}, and can be checked by hand. In \cref{prop:identity} the six products $nd$ have degrees
-$12$, $26$ and $34$ (minors of $Q^\top F_3Q$) and $14$, $18$ and $26$ (minors of $G$), with integer coefficients of up to
+$12$, $26$ and $34$ (minors of $U^\top F_3U$) and $14$, $18$ and $26$ (minors of $G$), with integer coefficients of up to
 $21$ digits. The discriminant for curvature $1$ has degree $12$. The entries of $P$ are printed in \cref{app:P}. The tuning, the
-matrices $P$, $F$, $Q$ and $G$, the six minors with their products $nd$, and the discriminant are written in exact form to
+matrices $P$, $F$, $U$ and $G$, the six minors with their products $nd$, and the discriminant are written in exact form to
 \texttt{results/optimal/achievability.json}, so the check can be repeated in any computer algebra system.
 
 All exact computations use SymPy~1.14 under Python~3.12, namely rational arithmetic, polynomial expansion,
@@ -946,10 +951,10 @@ of $\kappa$, in every dimension. These constants exceed $8-64/\sqrt\kappa$ at th
 We computed two further quantities in floating point, which are not certified. On the side of tunings, we minimized the exact
 rate $\rho_Q$ over a grid of tunings in the region $Q$ of \citet[Thm.~7.2(b)]{pasechniuk2026two}, where their theorem
 gives $\rho=\rho_Q$ (\file{code/pv_region_search.py}). On the side of functions, for each tuning we took the larger of
-$\rho_Q$ and the rate of the slowest decaying spiral, using either root-of-unity spirals as in \cref{lem:spiral} or
-general log-spirals $x_t=r^te^{it\theta}$ with any $\theta$, and minimized over a grid of tunings refined near the
-optimum. \Cref{tab:bracket}
-collects these numbers with the proved bounds.
+$\rho_Q$ and the rate of the slowest decaying spiral, and minimized over a grid of tunings refined near the optimum.
+The spirals are either root-of-unity spirals as in \cref{lem:spiral} or general log-spirals $x_t=r^te^{it\theta}$ with
+any $\theta$, and for the latter the function values $f_t=Fr^{2t}$ may have any scale $F$. \Cref{tab:bracket} collects
+these numbers with the proved bounds.
 
 \begin{table}[ht]
   \centering
@@ -1136,12 +1141,8 @@ $\sigma=4$ the coefficient of $s$ in $\beta=r(r-\sigma s)$, they are
   P_{12}&=\frac{2CP_{22}s-Cs^3+2\sigma P_{22}-\sigma s^2+s}{2(Cs+\sigma)(Cs^2-1)},\\
   P_{13}&=\frac{P_{23}}{Cs^2-1}.
 \end{align*}
-To leading order,
-\[
-  \xi_t^\top P\xi_t\approx\frac{\|x_t-x_{t-1}\|^2}{64s}+\frac12\langle x_t-x_{t-1},p_{t-1}\rangle+2s\|p_{t-1}\|^2,
-\]
-and $F=w_0w_0^\top/8+O(s)$ with $w_0=(1,-1,2,-2)$. The leading part of $F$ has rank one, and the positivity of
-$F$ is decided at orders $s$ and $s^3$. The basis $Q$ of \cref{sec:verification} makes this visible in the minors. In the
+To leading order, $F=w_0w_0^\top/8+O(s)$ with $w_0=(1,-1,2,-2)$. The leading part of $F$ has rank one, and the positivity of
+$F$ is decided at orders $s$ and $s^3$. The basis $U$ of \cref{sec:verification} makes this visible in the minors. In the
 variables $e=x_t-x_{t-1}$, $x_{t-1}$ and $p=p_{t-1}$, the quadratic part of $V_t$ has the coefficients
 \begin{alignat*}{3}
   \|e\|^2&:\ \frac1{64s}+\frac5{32}+O(s),&\qquad 2\langle e,x_{t-1}\rangle&:\ \frac s4+O(s^3),&\qquad
@@ -1209,8 +1210,8 @@ construction that rests on two stated external inputs. They rotate the roots-of-
 communication, that Dieuleveut and collaborators had also solved the problem. We found no such preprint as of October 15,
 2026. Combined with \citet[Thm.~3.6]{goujaud2025provable}, this gives $\rho\ge1-(100/3+o(1))/\kappa$ on $\F(\R)$ for
 every tuning. Building on that construction, \citet[App.~F, Thm.~8]{liu2026sharp} gave a complete proof with a fixed
-phase, showing $(\kappa-12)/(\kappa+12)\le\rho^\star$ for $\kappa\ge24$ over $\gamma>0$ and $0\le\beta<1$, on
-$C^\infty$ functions with any Hessian-H\"older bound and with locally attracting cycles. \Citet{pasechniuk2026two}
+phase. It shows that every tuning with $\gamma>0$ and $0\le\beta<1$ has rate at least $(\kappa-12)/(\kappa+12)$ for
+$\kappa\ge24$, on $C^\infty$ functions with any Hessian-H\"older bound and with locally attracting cycles. \Citet{pasechniuk2026two}
 credit the blog with settling the riddle. We include only what we believe adds to these works, namely a better constant
 (\cref{thm:onedim}), the limit of the cycle method (\cref{prop:limit}), and an exact rest-start orbit of Polyak's tuning
 for all $\kappa\ge100$ (\cref{thm:polyak-rest}).
